@@ -1,19 +1,25 @@
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, Any
 
 @dataclass
 class Content:
     prompt: str
-    image_path: Optional[str] = None
+    file_path: Optional[Any] = None
     
     def to_dict(self):
-        result = {
+        result = [{
             "type": "text",
             "text": self.prompt
-        }
+        }]
 
-        if self.image_path is not None:
-            result["type"] = "image"
-            result["image"] = self.image_path
+        if self.file_path is not None:
+            result.append(
+                {
+                    "type": "image_url",
+                    "image_url": {"url": self.file_path}
+                }
+            )
+            # result["type"] = "image_url"
+            # result["image_url"] = {"url": self.file_path}
 
         return result
