@@ -19,7 +19,5 @@ class Content:
                     "image_url": {"url": self.file_path}
                 }
             )
-            # result["type"] = "image_url"
-            # result["image_url"] = {"url": self.file_path}
 
         return result
