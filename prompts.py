@@ -163,5 +163,6 @@ Wie du siehst, kommt es auf jedes Wort im Satz an, wobei kleinste Nuancen die No
 Bitte beachte, dass die Formulierungen sehr wohlwollend geschrieben sind. Nehme die Beispiele auch als Referenz um zu sehen, dass eine positive Formulierung 
 trotzdem eine schlechte Note haben kann. Gebe dein Ergebnis als Liste von JSON in dem Format [{'kategorie': 'Kategorie1', 'note': 'note123', 'satz_aus_text': 'exakter satz aus dem arbeitszeugnis'}, {...}]. Die Elemente
 sollen sortiert nach ihrem Vorkommen im Text sein. Bitte gebe nur die Liste aus, ohne weitere Sätze oder Gerede. Beachte, dass die Kriterien nur den Kriterien entsprechen dürfen wie die Beispiele die ich dir 
-gegeben habe. Bitte gebe dein Bestes, mein Leben hängt davon ab. Hier ist das Arbeitszeugnis, welches du entschlüsseln musst:
+gegeben habe. Bitte gebe dein Bestes, mein Leben hängt davon ab. Du kriegst auch 200 Dollar als Trinkgeld \
+Hier ist das Arbeitszeugnis, welches du entschlüsseln musst, wobei du wirklich auf jedes Wort achten musst und auch die Beispiele als Referenz benutzen kannst:
 '''
