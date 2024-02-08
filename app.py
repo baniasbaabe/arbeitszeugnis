@@ -5,28 +5,24 @@ from response_generation import generate_response
 import streamlit as st
 from dotenv import load_dotenv
 import fitz
-import os
 from litellm.exceptions import APIConnectionError
-from spacy import displacy
-from ast import literal_eval
+from display_results import find_matches, render_displacy
+from utils import remove_images, clean_results
 import re
 
 load_dotenv()
+
+job_reference_content = ""
+images = []
 
 st.title("🧠 Arbeitszeugnis.ai")
 
 file_path = st.file_uploader("Upload your job reference")
 
-job_reference_content = ""
-
-reference_sents = []
-
-colors = {}
 
 if file_path:
     
     doc = fitz.open(stream = file_path.read(), filetype="pdf")
-    images = []
     
     for i, page in enumerate(doc):
         pix = page.get_pixmap()
@@ -37,29 +33,17 @@ if file_path:
         try:
             job_reference_content += generate_response(ModelName.GEMINI_VISION, Content(TEXT_EXTRACTION_PROMPT, image))
         except APIConnectionError:
-            st.error("API Connection Error: Please check if your country is eligible for the API. If you are in an eligible country, please check your API key.")
+            st.error("API Connection Error: Please check if your country is eligible for the API https://ai.google.dev/available_regions. \
+                If you are in an eligible country, please check your API key.")
             st.stop()
 
     JOB_REFERENCE_DECODER_PROMPT = JOB_REFERENCE_DECODER_PROMPT + job_reference_content
     results = generate_response(ModelName.GEMINI_PRO, Content(JOB_REFERENCE_DECODER_PROMPT))
+    results = clean_results(results)
     
-    results = results.replace("```json", "")
-    results = results.replace("```JSON", "")
-    results = results.replace("```", "")	
-    results = literal_eval(results)
-
-
-    for entry in results:
-        for match in re.finditer(entry["satz_aus_text"], job_reference_content):
-            reference_sents.append({"start":match.start(), "end":match.end(), "label":f"{entry['kategorie']}, Note: {entry['note']}"})
-
-    dic_ents = {
-        "text": job_reference_content,
-        "ents": reference_sents,
-        "title": None
-    }
-    dep_svg = displacy.render(dic_ents, style="ent", jupyter=False, manual=True)
-    st.markdown(dep_svg, unsafe_allow_html=True)        
-        
-    for image in images:
-        os.remove(image)
+    reference_sents = find_matches(results, job_reference_content)
+    
+    dep_svg = render_displacy(job_reference_content, reference_sents)
+    st.markdown(dep_svg, unsafe_allow_html=True)
+    
+    remove_images(images)
