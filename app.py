@@ -1,24 +1,22 @@
-from prompts import TEXT_EXTRACTION_PROMPT, JOB_REFERENCE_DECODER_PROMPT
-from content import Content
-from model_constants import ModelName
-from response_generation import generate_response
+import fitz
 import streamlit as st
 from dotenv import load_dotenv
-import fitz
 from litellm.exceptions import APIConnectionError
+
+from content import Content
 from display_results import find_matches, render_displacy
-from utils import remove_images, clean_results
-import re
+from model_constants import ModelName
+from prompts import JOB_REFERENCE_DECODER_PROMPT, TEXT_EXTRACTION_PROMPT
+from response_generation import generate_response
+from utils import clean_results, remove_images
 
 load_dotenv()
-
 job_reference_content = ""
 images = []
 
 st.title("🧠 Arbeitszeugnis.ai")
 
 file_path = st.file_uploader("Upload your job reference")
-
 
 if file_path:
     
@@ -33,8 +31,7 @@ if file_path:
         try:
             job_reference_content += generate_response(ModelName.GEMINI_VISION, Content(TEXT_EXTRACTION_PROMPT, image))
         except APIConnectionError:
-            st.error("API Connection Error: Please check if your country is eligible for the API https://ai.google.dev/available_regions. \
-                If you are in an eligible country, please check your API key.")
+            st.error("API Connection Error: Please check if your country is eligible for the API https://ai.google.dev/available_regions.")
             st.stop()
 
     JOB_REFERENCE_DECODER_PROMPT = JOB_REFERENCE_DECODER_PROMPT + job_reference_content
