@@ -6,6 +6,11 @@ Just upload your job reference and see your real ratings.
 
 ## Demo
 
+
+https://github.com/baniasbaabe/arbeitszeugnis/assets/72874670/3c9d6e0c-4472-40f5-9f7c-8bd7b8af36b5
+
+
+
 ## Motivation
 
 German job references (german: _arbeitszeugnis_) are handed out to an employee after leaving a company. In addition to a description of the company, the department and the activities during the employment relationship, the employee himself is also evaluated. There are various criteria such as the quality of work, resilience, behavior towards employees, management style, working methods and so on.
