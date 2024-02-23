@@ -14,6 +14,8 @@ load_dotenv()
 job_reference_content = ""
 images = []
 
+st.set_page_config(page_title="Arbeitszeugnis.ai", page_icon="https://1000logos.net/wp-content/uploads/2023/11/Brain-Emoji.png")
+
 st.title("🧠 Arbeitszeugnis.ai")
 
 file_path = st.file_uploader("Upload your job reference")
