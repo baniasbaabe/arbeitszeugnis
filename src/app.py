@@ -3,12 +3,12 @@ import streamlit as st
 from dotenv import load_dotenv
 from litellm.exceptions import APIConnectionError
 
-from content import Content
-from display_results import find_matches, render_displacy
-from model_constants import ModelName
-from prompts import JOB_REFERENCE_DECODER_PROMPT, TEXT_EXTRACTION_PROMPT
-from response_generation import generate_response
-from utils import clean_results, remove_images
+from src.content import Content
+from src.display_results import find_matches, render_displacy
+from src.model_constants import ModelName
+from src.prompts import JOB_REFERENCE_DECODER_PROMPT, TEXT_EXTRACTION_PROMPT
+from src.response_generation import generate_response
+from src.utils import clean_results, remove_images
 
 load_dotenv()
 job_reference_content = ""

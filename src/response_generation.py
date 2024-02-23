@@ -1,7 +1,8 @@
 import litellm
 
-from content import Content
-from model_constants import ModelName
+
+from src.content import Content
+from src.model_constants import ModelName
 
 
 def generate_response(model_name: ModelName, content: Content) -> str:
