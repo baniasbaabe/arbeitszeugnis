@@ -11,8 +11,10 @@ def remove_images(images: List[str]) -> None:
         images (List[str]): List of image paths.
     """
     for image in images:
+        print("path")
         os.remove(image)
-    
+
+
 def clean_results(results: str) -> List[dict]:
     """
     Clean up results from Gemini Pro API.
@@ -25,6 +27,6 @@ def clean_results(results: str) -> List[dict]:
     """
     results = results.replace("```json", "")
     results = results.replace("```JSON", "")
-    results = results.replace("```", "")	
+    results = results.replace("```", "")
     results = literal_eval(results)
     return results

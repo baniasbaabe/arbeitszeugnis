@@ -19,7 +19,13 @@ def find_matches(results: List[dict], job_reference_content: str) -> List[dict]:
     reference_sents = []
     for entry in results:
         for match in re.finditer(entry["satz_aus_text"], job_reference_content):
-            reference_sents.append({"start":match.start(), "end":match.end(), "label":f"{entry['kategorie']}, Note: {entry['note']}"})
+            reference_sents.append(
+                {
+                    "start": match.start(),
+                    "end": match.end(),
+                    "label": f"{entry['kategorie']}, Note: {entry['note']}",
+                }
+            )
     return reference_sents
 
 
@@ -34,9 +40,5 @@ def render_displacy(job_reference_content: str, reference_sents: List[dict]) -> 
     Returns:
         str: Displacy SVG.
     """
-    dic_ents = {
-        "text": job_reference_content,
-        "ents": reference_sents,
-        "title": None
-    }
+    dic_ents = {"text": job_reference_content, "ents": reference_sents, "title": None}
     return displacy.render(dic_ents, style="ent", jupyter=False, manual=True)
